@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  traefik:
+    build:
+      context: ./proxy
+#    image: "proxy:latest"
+    ports:
+      - "8081:80"
+      - "4434:443"
+  webserver:
+    build:
+      context: ./webserver
+#    image: "webserver:latest"

@@ -1,0 +1,53 @@
+# Dynamic configuration
+http:
+  routers:
+    ttrouter:
+      service: techtask
+      rule: "(Host(`techtask.demo.cf`))"
+      middlewares:
+      - user-auth
+      entryPoints: secure
+      tls:
+        {}
+
+  middlewares:
+    secureHeaders:
+      headers:
+        sslRedirect: true
+        forceSTSHeader: true
+        stsIncludeSubdomains: true
+        stsPreload: true
+        stsSeconds: 31536000
+
+    user-auth:
+      basicAuth:
+        users:
+          - "ccastillo:$apr1$d9jqr04e$9bZdQOJdDmKa4dI.6xsz3."
+
+  services:
+    techtask:
+      loadBalancer:
+        servers:
+          - url: "http://webserver"
+
+tls:
+  certificates:
+    - certFile: /etc/traefik/certs/techtask.demo.cf.crt
+      keyFile: /etc/traefik/certs/techtask.demo.cf.key
+      stores:
+        - default
+  stores:
+    default:
+      defaultCertificate:
+        certFile: /etc/traefik/certs/techtask.demo.cf.crt
+        keyFile: /etc/traefik/certs/techtask.demo.cf.key
+  options:
+    default:
+      cipherSuites:
+        - TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
+        - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+        - TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
+        - TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+        - TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305
+        - TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305
+      minVersion: VersionTLS12

@@ -1,0 +1,24 @@
+#Global configuration
+global:
+  checkNewVersion: true
+  sendAnonymousUsage: true
+
+#Define HTTP and HTTPS entrypoints
+entryPoints:
+  unsecure:
+    address: ":80"
+  secure:
+    address: ":443"
+
+#Dynamic configuration will come from docker labels
+providers:
+  file:
+    filename: /etc/traefik/dynamic.yaml
+#    watch: true
+#Dashboard
+api:
+  dashboard: true
+
+## SSL disable
+serversTransport:
+  insecureSkipVerify: true
