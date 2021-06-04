@@ -6,4 +6,6 @@ the way to use it is to clone all the repo and just run: "docker-compose up -d";
 
 The proxy accepts only request with Host information in the header, the host should be "techtask.demo.cf", also it uses basic authentication User/Pass combination is "techtask:techtask".
 
-Docker-compose is instructed to expose the SSL port into 4434 port, so for testing you need to use "https://techtask.demo.cf:4434", the SSL Cert is selfsigned so warning is expected from the browser.
+Also the prefic "/supersecrettoken" was added in order to hide the root path.
+
+Docker-compose is instructed to expose the SSL port into 4434 port, need to change the host local file to point "techtask.demo.cf" to dockerHost IP address and for testing you need to use "https://techtask.demo.cf:4434/supersecuretoken/index.html", the SSL Cert is selfsigned so warning is expected from the browser.
