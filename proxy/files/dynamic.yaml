@@ -3,14 +3,20 @@ http:
   routers:
     ttrouter:
       service: techtask
-      rule: "(Host(`techtask.demo.cf`))"
+      rule: "(Host(`techtask.demo.cf`) && PathPrefix(`/supersecuretoken`))"
       middlewares:
       - user-auth
+      - test-stripprefix
       entryPoints: secure
       tls:
         {}
 
   middlewares:
+    test-stripprefix:
+      stripPrefix:
+        prefixes:
+          - "/supersecuretoken"
+  
     secureHeaders:
       headers:
         sslRedirect: true
