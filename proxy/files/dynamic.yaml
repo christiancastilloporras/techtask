@@ -22,7 +22,7 @@ http:
     user-auth:
       basicAuth:
         users:
-          - "ccastillo:$apr1$d9jqr04e$9bZdQOJdDmKa4dI.6xsz3."
+          - "techtask:$apr1$/q9Hn3ZK$LjrhsvNkC6U8OWGPh1rDF1"
 
   services:
     techtask:
